@@ -43,7 +43,7 @@
             <div class="@if (auth()->check() && request()->route()->getName() != "") main-panel @endif">
                 @include('layouts.navbars.navbar')
                 @yield('content')
-                @include('layouts.footer.nav')
+                <!-- include('layouts.footer.nav') Retirado o footer-->
             </div>
 
         </div>

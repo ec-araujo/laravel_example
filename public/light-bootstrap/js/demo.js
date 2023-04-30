@@ -197,8 +197,8 @@ demo = {
         Chartist.Pie('#chartPreferences', dataPreferences, optionsPreferences);
 
         Chartist.Pie('#chartPreferences', {
-            labels: ['53%', '36%', '11%'],
-            series: [53, 36, 11]
+            labels: ['40%', '30%', '20%'],
+            series: [40, 30, 20]
         });
 
 
