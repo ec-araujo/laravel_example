@@ -4,7 +4,7 @@
             <i class="fa fa-cog fa-2x"> </i>
         </a>
         <ul class="dropdown-menu">
-            <li class="header-title"> {{ __('Sidebar Style') }}</li>
+            <li class="header-title"> {{ __('Sidebar Style 2') }}</li>
             <li class="adjustments-line">
                 <a href="javascript:void(0)" class="switch-trigger">
                     <p>{{ __('Background Image') }}</p>

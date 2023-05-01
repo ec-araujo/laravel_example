@@ -515,7 +515,7 @@ demo = {
 
         $.notify({
             icon: "nc-icon nc-app",
-            message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+            message: "Bem vindo ao <b>Relator 1.0</b>."
 
         }, {
             type: type[color],
