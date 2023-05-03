@@ -1,14 +1,21 @@
 @extends('layouts.app', ['activePage' => 'dashboard', 'title' => 'Relator 1.0', 'navName' => 'Dashboard', 'activeButton' => 'laravel'])
 
 @section('content')
+<h1>Valores da tabela Relatorios</h1>
+    <textarea cols="50" rows="10" readonly id="valores"></textarea>
+    
+    <p>Clique no botão abaixo para ver os valores da tabela "relatorios".</p>
+    <a href="/valores.php">Ver Valores</a>
+
+
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
                 <div class="card ">
                     <div class="card-header ">
-                        <h4 class="card-title">{{ __('Email Statistics') }}</h4>
-                        <p class="card-category">{{ __('Last Campaign Performance') }}</p>
+                        <h4 class="card-title">{{ __('Quantidade de Ocorrências - 2023') }}</h4>
+                        <p class="card-category">{{ __('Registro de Ocorrências') }}</p>
                     </div>
                     <div class="card-body ">
                         <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>

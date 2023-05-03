@@ -7,6 +7,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-7 col-md-8">
                         <h1 class="text-white text-center">{{ __('Construtor dos contrutores - teste.') }}</h1>
+                        <img src="{{ asset('light-bootstrap/img/cbmba.png') }}" style="width:50%" class="center">
                     </div>
                 </div>
             </div>

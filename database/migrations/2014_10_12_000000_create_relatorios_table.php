@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('tipo_de_ocorrencia');
             $table->timestamps();
             $table->date('data_do_ocorrido');
-            $table->time('horario_acionamento');
-            $table->time('horario_chegada');
-            $table->time('horario_termino');
+            $table->timestamp('horario_acionamento');
+            $table->timestamp('horario_chegada');
+            $table->timestamp('horario_termino');
             $table->string('cidade_ocorrencia');
             $table->string('bairro_ocorrencia');
             $table->string('endereço_ocorrencia');

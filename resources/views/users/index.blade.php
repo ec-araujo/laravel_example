@@ -1,17 +1,3 @@
-<!-- 
-=========================================================
- Light Bootstrap Dashboard - v2.0.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com) & UPDIVISION (https://www.updivision.com)
- Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard/blob/master/LICENSE)
-
- Coded by Creative Tim & UPDIVISION
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  -->
  <!DOCTYPE html>
 
  <html lang="en">
@@ -248,7 +234,7 @@
                         <span class="navbar-toggler-bar burger-lines"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                        <ul class="nav navbar-nav mr-auto">
+                     <!--   <ul class="nav navbar-nav mr-auto">
                             <li class="nav-item">
                                 <a href="#" class="nav-link" data-toggle="dropdown">
                                     <i class="nc-icon nc-palette"></i>
@@ -275,7 +261,7 @@
                                     <span class="d-lg-block">&nbsp;{{ __('Search') }}</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> -->
                         <ul class="navbar-nav   d-flex align-items-center">
                             <li class="nav-item">
                                 <a class="nav-link" href=" {{route('profile.edit') }} ">

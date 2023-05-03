@@ -7,7 +7,7 @@
             <span class="navbar-toggler-bar burger-lines"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="nav navbar-nav mr-auto">
+           <!-- <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item">
                     <a href="#" class="nav-link" data-toggle="dropdown">
                         <i class="nc-icon nc-palette"></i>
@@ -34,7 +34,7 @@
                         <span class="d-lg-block">&nbsp;{{ __('Search') }}</span>
                     </a>
                 </li>
-            </ul>
+            </ul> -->
             <ul class="navbar-nav   d-flex align-items-center">
                 <li class="nav-item">
                     <a class="nav-link" href=" {{route('profile.edit') }} ">
