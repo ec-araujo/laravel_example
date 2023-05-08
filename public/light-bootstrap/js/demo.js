@@ -510,22 +510,7 @@ demo = {
         marker.setMap(map);
     },
 
-    showNotification: function(from, align) {
-        color = Math.floor((Math.random() * 4) + 1);
 
-        $.notify({
-            icon: "nc-icon nc-app",
-            message: "Bem vindo ao <b>Relator 1.0</b>."
-
-        }, {
-            type: type[color],
-            timer: 8000,
-            placement: {
-                from: from,
-                align: align
-            }
-        });
-    }
 
 
 

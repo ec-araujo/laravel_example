@@ -1,13 +1,12 @@
 @extends('layouts/app', ['activePage' => 'welcome', 'title' => 'Relator 1.0'])
 
 @section('content')
-    <div class="full-page section-image" data-color="black" data-image="{{asset('light-bootstrap/img/full-screen-image-2.jpg')}}">
+    <div class="full-page section-image" data-color="black" data-image="{{asset('light-bootstrap/img/barroquinha.png')}}">
         <div class="content">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-7 col-md-8">
-                        <h1 class="text-white text-center">{{ __('Construtor dos contrutores - teste.') }}</h1>
-                        <img src="{{ asset('light-bootstrap/img/cbmba.png') }}" style="width:50%" class="center">
+                    <div class="col-lg-12 col-md-8">
+                        <img src="{{ asset('light-bootstrap/img/cbmba.png') }}" style="width:40%" class="center">
                     </div>
                 </div>
             </div>

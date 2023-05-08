@@ -1,10 +1,6 @@
 <?php
 
-use App\Http\Controllers\RelatorioController;
-use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -24,15 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/valores', function () {
-    $valores = DB::table('relatorios')->pluck('identificador')->toArray();
-    return $valores;
-});
-
-Route::get('/relatorios', [RelatorioController::class, 'index']);
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('dashboard');
 

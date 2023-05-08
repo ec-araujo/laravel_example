@@ -36,62 +36,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($relatorios as $relatorio)
-                <tr>
-                    <td>{{ $relatorio->identificador }}</td>
-                    <td>{{ $relatorio->tipo_de_ocorrencia }}</td>
-                    <td>{{ $relatorio->data_do_ocorrido }}</td>
-                    <td>{{ $relatorio->horario_acionamento }}</td>
-                    <td>{{ $relatorio->horario_chegada }}</td>
-                    <td>{{ $relatorio->horario_termino }}</td>
-                    <td>{{ $relatorio->cidade_ocorrencia }}</td>
-                    <td>{{ $relatorio->bairro_ocorrencia }}</td>
-                    <td>{{ $relatorio->endereco_ocorrencia }}</td>
-                    <td>{{ $relatorio->nome_solicitante }}</td>
-                    <td>{{ $relatorio->telefone_solicitante }}</td>
-                    <td>{{ $relatorio->descricao_ocorrencia }}</td>
-                    <td>{{ $relatorio->vitimas }}</td>
-                </tr>
-            @endforeach
+
         </tbody>
     </table>
 </body>
 </html>
-<script>
-    const labels = [];
-    const data = [];
-    const backgroundColors = [];
 
-    @foreach($relatorios as $relatorio)
-        labels.push('{{ $relatorio->tipo_de_ocorrencia }}');
-        data.push('{{ $relatorio->vitimas }}');
-        backgroundColors.push(getRandomColor());
-    @endforeach
-
-    const ctx = document.getElementById('pieChart').getContext('2d');
-    const pieChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                data: data,
-                backgroundColor: backgroundColors,
-            }]
-        },
-        options: {
-            responsive: false,
-            width: 600,
-            height: 600
-            // aqui definimos um tamanho de 400px por 400px
-        }
-    });
-
-    function getRandomColor() {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-</script>

@@ -88,8 +88,8 @@ h3,
 .h3,
 h4,
 .h4 {
-    font-weight: 300;
-    margin: 30px 0 15px;
+    font-weight: bolder;
+    margin: 0 0 15px;
 }
 
 h1,
@@ -1190,9 +1190,9 @@ fieldset[disabled] .btn-info.active {
 }
 
 .btn-warning {
-    border: 1px solid #FFA534;
+    border: 1px solid #ff3b34;
     color: #FFFFFF;
-    background-color: #FFA534;
+    background-color: #ff3b34;
     cursor: pointer;
 }
 
@@ -1202,8 +1202,8 @@ fieldset[disabled] .btn-info.active {
 .btn-warning.active,
 .open>.btn-warning.dropdown-toggle {
     background-color: transparent;
-    color: #ED8D00;
-    border-color: #ED8D00;
+    color: red;
+    border-color: #ff3b34;
 }
 
 .btn-warning.disabled,
