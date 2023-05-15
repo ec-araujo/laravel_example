@@ -27,6 +27,17 @@
                                             </div>
 
                                             <div class="form-group">
+                                                    <select name="role" id="role" class="form-control" placeholder="{{ __('Role') }}" value="{{ old('role') }}" required>
+                                                    <option value="">Selecione um tipo</option>
+                                                    <option value="Master">Master</option>
+                                                    <option value="DMT">DMT</option>
+                                                    <option value="COBM">COBM</option>
+                                                    <option value="COBMI">COBMI</option>
+                                                    <option value="SPO/GBM">SPO/GBM</option>
+                                                    </select>
+                                            </div>
+
+                                            <div class="form-group">
                                                 <input type="password" name="password" class="form-control" required >
                                             </div>
                                             <div class="form-group">

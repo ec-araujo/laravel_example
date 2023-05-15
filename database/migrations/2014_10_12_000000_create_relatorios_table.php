@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('relatorios', function (Blueprint $table) {
-            $table->id();
-            $table->integer('identificador');
+            $table->id();                       //relatorio ID
+            $table->integer('identificador');   //
             $table->string('tipo_de_ocorrencia');
             $table->timestamps();
             $table->date('data_do_ocorrido');
@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('telefone_solicitante');
             $table->string('descrição_ocorrencia');
             $table->integer('vitimas');
-
         });
     }
 

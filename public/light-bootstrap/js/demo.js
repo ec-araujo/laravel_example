@@ -289,6 +289,58 @@ demo = {
             }]
         ];
 
+        var url = document.getElementById('dados').getAttribute('data-dados');
+
+        $.ajax({
+            url: url,
+            success: function(response) {
+                // Preencha um gráfico com os dados do banco de dados
+                var data = [];
+                $.each(response, function(key, value) {
+                    data.push({
+                        x: new Date(value.data),
+                        y: value.valor
+                    });
+                });
+        
+                // Renderize o gráfico usando os dados preenchidos acima
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: 'Dados do gráfico',
+                            data: data,
+                            borderColor: 'rgb(255, 99, 132)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                type: 'time',
+                                time: {
+                                    displayFormats: {
+                                        quarter: 'MMM YYYY'
+                                    }
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Data'
+                                }
+                            }],
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Valor'
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+        });
+
         var chartActivity = Chartist.Bar('#chartActivity', data, options, responsiveOptions);
 
         // lbd.startAnimationForBarChart(chartActivity);

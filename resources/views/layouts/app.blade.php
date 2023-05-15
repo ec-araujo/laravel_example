@@ -1,17 +1,3 @@
-<!-- 
-=========================================================
- Light Bootstrap Dashboard - v2.0.1
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard
- Copyright 2019 Creative Tim (https://www.creative-tim.com) & Updivision (https://www.updivision.com)
- Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard/blob/master/LICENSE)
-
- Coded by Creative Tim & Updivision
-
-=========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  -->
 <!DOCTYPE html>
 
 <html lang="en">
@@ -32,10 +18,14 @@
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link rel="stylesheet" href="{{ asset('light-bootstrap/css/demo.css') }}"/>
         
+        <!-- Links para a criação do relatório -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    
+
     </head>
 
     <body>
-
 
         <div class="wrapper @if (!auth()->check() || request()->route()->getName() == "") wrapper-full-page @endif">
 
@@ -45,7 +35,8 @@
             @endif
 
             <div class="@if (auth()->check() && request()->route()->getName() != "") main-panel @endif">
-                @include('layouts.navbars.navbar')
+                
+              @include('layouts.navbars.navbar')
                 
                 
                 @yield('content')
@@ -53,8 +44,6 @@
             </div>
 
         </div>
-       
-
 
     </body>
   
@@ -77,6 +66,7 @@
     <script src="{{ asset('light-bootstrap/js/demo.js') }}"></script>
     @stack('js')
     <script>
+
       $(document).ready(function () {
         
         $('#facebook').sharrre({

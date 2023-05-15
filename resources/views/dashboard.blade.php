@@ -2,7 +2,9 @@
 
 @section('content')
    <div class="content">
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div class="container-fluid">
+            <!--
             <div class="row">
                 <div class="col-md-4">
                     <div class="card ">
@@ -47,15 +49,55 @@
                     </div>
                 </div>
             </div>
+        -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="card ">
                         <div class="card-header ">
-                            <h4 class="card-title">{{ __('2017 Sales') }}</h4>
-                            <p class="card-category">{{ __('All products including Taxes') }}</p>
+                            <h4 class="card-title">{{ __('2023 - Relatórios de Ocorrência') }}</h4>
+                            <p class="card-category">{{ __('Ocorrências por Mês') }}</p>
                         </div>
                         <div class="card-body ">
-                            <div id="chartActivity" class="ct-chart"></div>
+
+                            <canvas id="myChart"></canvas>
+
+                            <script>
+                                var meses = [];
+                                var totais = [];
+                                var dados = {!! json_encode($dados) !!}
+                                
+                                dados.forEach(function(item) {
+                                    meses.push(item.mes);
+                                    totais.push(item.total);
+                                });
+                        
+                                var ctx = document.getElementById('myChart').getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: meses,
+                                        datasets: [{
+                                            label: 'Ocorrências por Mês',
+                                            data: totais,
+                                            backgroundColor: 'rgba(255, 99, 71, 0.65)',
+                                            borderColor: 'rgba(255, 0, 0, 1)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
+
+
+
+
+                            
                         </div>
                         <div class="card-footer ">
                             <div class="legend">
@@ -66,6 +108,45 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header ">
+                            <h4 class="card-title">{{ __('Relatórios') }}</h4>
+                        </div>
+                        <div class="card-body ">                       
+                            <div>
+                            <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Nº ID</th>
+                                    <th scope="col">Tipo de Ocorrência</th>
+
+                                  </tr>
+                                </thead>
+                                {{$infos}}
+                                <tbody>
+                                    @foreach ($dados as $dado)
+                                        <tr>
+                                            <td>{{ $dado->id}}</td>
+                                            <td>{{ $dado->tipo_de_ocorrencia }}</td>
+                                        </tr>
+                                    @endforeach
+                                    
+                                </tbody>
+                              </table>
+
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <div class="legend">
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

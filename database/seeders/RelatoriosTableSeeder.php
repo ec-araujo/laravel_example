@@ -32,23 +32,53 @@ class RelatoriosTableSeeder extends Seeder
 
         foreach ($tipos as $tipo) {
 
+            $date = now();
             $acionamento = Carbon::now()->subDays(rand(1, 30))->subHours(rand(0, 23))->subMinutes(rand(0, 59));
             $chegada = Carbon::now()->subDays(rand(0, 10))->subHours(rand(0, 23))->subMinutes(rand(0, 59));
             $termino = Carbon::now()->subDays(rand(0, 7))->subHours(rand(0, 23))->subMinutes(rand(0, 59));
             $date_2023 = Carbon::create(2023, rand(1, 12), rand(1, 31), rand(0, 23), rand(0, 59), rand(0, 59));
+            $identificador = intval($date->format('Ymd'). rand(0, 999));
+            $cidades = [
+                'Salvador',
+                'Feira de Santana',
+                'Vitória da Conquista',
+                'Camaçari',
+                'Itabuna',
+                'Juazeiro',
+                'Lauro de Freitas',
+                'Ilhéus',
+                'Porto Seguro',
+                'Paulo Afonso'
+            ];
+            
+            $randomCidade = $cidades[array_rand($cidades)];
+            $nomesSolicitante = [
+                'Aurora Whitman',
+                'Lucas Montgomery',
+                'Isabella Hawthorne',
+                'Benjamin Sterling',
+                'Olivia Sinclair',
+                'Gabriel Prescott',
+                'Sophia Harrington',
+                'Ethan Monroe',
+                'Ava Kensington',
+                'Noah Donovan'
+            ];
+            
+            $randomNomeSolicitante = $nomesSolicitante[array_rand($nomesSolicitante)];
 
         DB::table('relatorios')->insert([
-            'identificador' => rand(100000, 999999),
+            'identificador' => $identificador,
             'tipo_de_ocorrencia' => $tipo,
             'created_at' => now(),
             'data_do_ocorrido' => $date_2023,
             'horario_acionamento' => $acionamento,
             'horario_chegada' => $chegada,
             'horario_termino' => $termino,
-            'cidade_ocorrencia' => Str::random(10),
+            'cidade_ocorrencia' => $randomCidade,
             'bairro_ocorrencia' => Str::random(5),
             'endereço_ocorrencia' => Str::random(15),
-            'nome_solicitante' => Str::random(10),
+            'nome_solicitante' => $randomNomeSolicitante,
             'telefone_solicitante' => Integer::class,
             'descrição_ocorrencia' => Str::random(10),
             'vitimas' => rand(1, 5)
