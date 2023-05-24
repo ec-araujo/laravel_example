@@ -33,12 +33,17 @@
                                                     <option value="DMT">DMT</option>
                                                     <option value="COBM">COBM</option>
                                                     <option value="COBMI">COBMI</option>
-                                                    <option value="SPO/GBM">SPO/GBM</option>
+                                                    <option value="SPO/GBM">1ºGBM/SPO</option>
+                                                    <option value="SPO/GBM">1ºGBM/OPE/CMD</option>
                                                     </select>
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="password" name="password" class="form-control" required >
+                                                <input type="text" name="num_funcional" id="num_funcional" class="form-control" placeholder="{{ __('Num_funcional') }}" value="{{ old('num_funcional') }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="password" name="password" placeholder="Senha" class="form-control" required >
                                             </div>
                                             <div class="form-group">
                                                 <input type="password" name="password_confirmation" placeholder="Confirme a Senha" class="form-control" required autofocus>

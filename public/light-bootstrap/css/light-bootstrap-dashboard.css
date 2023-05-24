@@ -476,6 +476,9 @@ body>.navbar-collapse .nav li .nav-link i {
     float: left;
 }
 
+
+
+
 /* .sidebar .nav li:hover .nav-link,
 body>.navbar-collapse .nav li:hover > .nav-link {
     background: rgba(255, 255, 255, 0.13);
@@ -999,6 +1002,10 @@ fieldset[disabled] .btn.active {
 .btn-primary {
     border-color: #3472F7;
     color: #3472F7;
+}
+
+.btn-block {
+    text-align: center;
 }
 
 .btn-primary:hover,
@@ -1836,6 +1843,7 @@ fieldset[disabled] .form-control {
 .table>tfoot>tr>td {
     padding: 12px 8px;
     vertical-align: middle;
+    text-align: left;
 }
 
 .table>thead>tr>th {
@@ -1849,6 +1857,7 @@ fieldset[disabled] .form-control {
     border-bottom: none;
     text-align: left !important;
 }
+
 
 .table .td-actions .btn {
     opacity: 0.36;
@@ -5630,7 +5639,3 @@ body, div, form, input, select {
     color: #000;
     line-height: 10px;
     }
-
-
-
-

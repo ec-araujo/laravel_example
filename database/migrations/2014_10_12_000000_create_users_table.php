@@ -14,12 +14,19 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['Master', 'DMT', 'COBM', 'COBMI', 'SPO/GBM', 'CG/GBM']);
+
+            $table->enum('role', ['Master', 'DMT', 'COBM', 'COBMI', '1ºGBM/SPO', '1ºGBM/OP/CMD']);
+
             $table->rememberToken();
             $table->timestamps();
+
+            $table->string('num_funcional');
+            $table->bigInteger('num_autenticador')->nullable();
+            $table->integer('ult_num_autenticado')->nullable();
         });
     }
 

@@ -54,7 +54,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'string', Rule::in(['Master', 'DMT', 'COBM', 'COBMI', 'SPO/GBM'])],
+            'role' => ['required', 'string', Rule::in(['Master', 'DMT', 'COBM', 'COBMI', '1ºGBM/SPO', '1ºGBM/OP/CMD'])],
+            'num_funcional' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -71,6 +72,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
+            'num_funcional' => $data['num_funcional'],
         ]);
     }
 }

@@ -21,8 +21,9 @@ class GraficoController extends Controller
         
     
     return view('dashboard')
-    ->with('dados', $dados)
-    ->with('infos', 'teste');
+    ->with('infos', $infos)
+    ->with('dados', $dados);
+
     }
     
 }

@@ -33,8 +33,15 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index2')->name('grafico
 
 Route::get('/criar', 'App\Http\Controllers\RelatorioController@index')->name('criar');
 
+
+Route::get('add-blog-post-form', [PostController::class, 'index']);
+Route::post('store-form', [PostController::class, 'store']);
+
+Route::post('salvar-dados', [RelatorioController::class,'salvarDados']);
+
+
 //buscar os dados no database e jogar na view do dashboard em forma de grafico e de tabela
-Route::get('/dashboard', 'App\Http\Controllers\GraficoController@index')->name('dashboard');
+Route::get('/dashboard', 'App\Http\Controllers\HomeController@index3')->name('dashboard');
 
 // para a pagina /grafico ok
 //Route::get('/grafico', 'App\Http\Controllers\GraficoController@index')->name('dados');

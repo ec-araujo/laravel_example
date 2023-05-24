@@ -55,6 +55,7 @@ $(document).ready(function() {
     $('body').on('touchstart.dropdown', '.dropdown-menu', function(e) {
         e.stopPropagation();
     });
+
 });
 
 // activate collapse right menu when the windows is resized

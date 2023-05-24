@@ -41,3 +41,9 @@
     </script>
 </body>
 </html>
+@foreach ($imfor as $dado)
+<tr>
+    <td>{{ $dado->id}}</td>
+    <td>{{ $dado->tipo_de_ocorrencia }}</td>
+</tr>
+@endforeach

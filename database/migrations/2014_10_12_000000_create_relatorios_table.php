@@ -13,20 +13,46 @@ return new class extends Migration
     {
         Schema::create('relatorios', function (Blueprint $table) {
             $table->id();                       //relatorio ID
-            $table->integer('identificador');   //
-            $table->string('tipo_de_ocorrencia');
-            $table->timestamps();
-            $table->date('data_do_ocorrido');
-            $table->timestamp('horario_acionamento');
-            $table->timestamp('horario_chegada');
-            $table->timestamp('horario_termino');
+            $table->bigInteger('identificador');   //n da ocorrencia
+            $table->timestamps();               //data do preenchimento do relatorio
+            $table->date('data_do_ocorrido');   //data da ocorrencia
+
+            $table->string('intervencao');
+
             $table->string('cidade_ocorrencia');
             $table->string('bairro_ocorrencia');
-            $table->string('endereço_ocorrencia');
+            $table->string('rua_ocorrencia');
+            $table->string('num_ocorrencia');
+            $table->string('pref_ocorrencia');
+
             $table->string('nome_solicitante');
             $table->string('telefone_solicitante');
+
+            $table->string('nome_militar');
+            $table->string('numfun_militar');
+            $table->string('fun_militar');
+
+            $table->string('tipo_de_ocorrencia');
+
+            $table->time('horario_acionamento');
+            $table->time('horario_chegada');
+            $table->time('horario_termino');
             $table->string('descrição_ocorrencia');
-            $table->integer('vitimas');
+
+            $table->string('hist_ocorrencia');
+
+            $table->string('vitimas');
+            $table->string('orgaos_ocorrencia');
+
+            //viatura
+            $table->string('tipo_de_viatura');
+            $table->string('placa_viatura');
+            $table->string('quant_guar');
+
+
+            $table->string('situacao');
+
+
         });
     }
 
