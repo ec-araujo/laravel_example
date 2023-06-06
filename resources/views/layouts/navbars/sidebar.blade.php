@@ -29,7 +29,7 @@ Tip 2: you can also add an image using data-image tag
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.index')}}">
+                            <a class="nav-link" href="{{route('abrir')}}">
                                 <i class="nc-icon nc-paper-2"></i>
                                 <p>{{ __("Abrir Relatório") }}</p>
                             </a>

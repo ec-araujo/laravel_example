@@ -28,13 +28,13 @@ class RelatoriosTableSeeder extends Seeder
         //    'Prevenções a Acidentes',      
                     ];
                     
-        $valorIncComer = 54; //valor correspondente da quantidade de incendios comercial
-        $valorIncResid = 145; //valor correspondente da quantidade de incendios residencial
-        $valorIncFlore = 26; //valor correspondente da quantidade de incendios florestal/vegetação
-        $valorExtCap = 32;   //valor correspondente da quantidade de extermínio/captura de abelhas
-        $valorCapCob = 14;   //valor correspondente da quantidade de captura de cobras/serpentes
-        $valorAPH = 175;      //valor correspondente da quantidade de atendimento pré-hospitalar
-        $valorPrevAci = 25;  //valor correspondente da quantidade de prevençoes a acidentes
+        $valorIncComer = 42; //valor correspondente da quantidade de incendios comercial
+        $valorIncResid = 182; //valor correspondente da quantidade de incendios residencial
+        $valorIncFlore = 47; //valor correspondente da quantidade de incendios florestal/vegetação
+        $valorExtCap = 19;   //valor correspondente da quantidade de extermínio/captura de abelhas
+        $valorCapCob = 7;   //valor correspondente da quantidade de captura de cobras/serpentes
+        $valorAPH = 214;      //valor correspondente da quantidade de atendimento pré-hospitalar
+        $valorPrevAci = 35;  //valor correspondente da quantidade de prevençoes a acidentes
         
         $incendioLixoRepeated = array_fill(0, $valorIncComer, 'Incêndio Comercial');
         $tipos = array_merge($tipos, $incendioLixoRepeated);
@@ -65,7 +65,7 @@ class RelatoriosTableSeeder extends Seeder
             $chegada = Carbon::now()->subDays(rand(0, 10))->subHours(rand(0, 23))->subMinutes(rand(0, 59));
             $termino = Carbon::now()->subDays(rand(0, 7))->subHours(rand(0, 23))->subMinutes(rand(0, 59));
             
-            $date_2023 = Carbon::create(2023, rand(1, 12), rand(1, 31), rand(0, 23), rand(0, 59), rand(0, 59));
+            $date_2023 = Carbon::create(2022, rand(1, 12), rand(1, 31), rand(0, 23), rand(0, 59), rand(0, 59));
             
             $identificador = rand(20230520001, 20230520999);
             

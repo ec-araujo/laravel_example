@@ -33,8 +33,8 @@
                                                     <option value="DMT">DMT</option>
                                                     <option value="COBM">COBM</option>
                                                     <option value="COBMI">COBMI</option>
-                                                    <option value="SPO/GBM">1ºGBM/SPO</option>
-                                                    <option value="SPO/GBM">1ºGBM/OPE/CMD</option>
+                                                    <option value="1ºGBM/SPO">1ºGBM/SPO</option>
+                                                    <option value="1ºGBM/OP/CMD">1ºGBM/OP/CMD</option>
                                                     </select>
                                             </div>
 

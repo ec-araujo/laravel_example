@@ -18,19 +18,7 @@ class RelatorioController extends Controller
 
         $data = Relatorio::all();
         return view('dashboard',['relatorios'=>$data]);
-        
 
-    }
-
-    protected function relatoriovalidator(array $data)
-    {
-        //return RelatorioValidator::make($data, [
-        //    'name' => ['required', 'string', 'max:255'],
-        //    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //    'password' => ['required', 'string', 'min:8', 'confirmed'],
-        //    'role' => ['required', 'string', Rule::in(['Master', 'DMT', 'COBM', 'COBMI', '1ºGBM/SPO', '1ºGBM/OP/CMD'])],
-        //    'num_funcional' => ['required', 'string', 'max:255'],
-        //]);
     }
 
     public function salvarDados(Request $request)
@@ -107,21 +95,39 @@ class RelatorioController extends Controller
         return redirect('criar')->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
-
-    public function adicionarValor(Request $request)
+    public function listaNumRelatorio($cidade)
     {
-        $valor = $request->input('valor');
-
-        // Lógica para adicionar o valor ao banco de dados usando o seu modelo
-        Relatorio::create([
-            'campo_do_banco_de_dados' => $valor
+        $cidadesOco = DB::table('relatorios')
+            ->select('tipo_de_ocorrencia', DB::raw('COUNT(*) as count'))
+            ->groupBy('tipo_de_ocorrencia')
+            ->where('cidade_ocorrencia', 'like', '%' . $cidade . '%')
+            ->get();
+    
+        $dughDataLabel = [];
+        $dughDataValue = [];
+    
+        foreach ($cidadesOco as $role) {
+            $tipoDeOcorrencia = $role->tipo_de_ocorrencia;
+            $quantidade = $role->count;
+            $chartDouData[] = [
+                'x' => $tipoDeOcorrencia,
+                'y' => $quantidade,
+            ];
+            $dughDataLabel[] = $tipoDeOcorrencia;
+            $dughDataValue[] = $quantidade;
+            // Faça algo com $tipoDeOcorrencia e $quantidade
+        }
+    
+        return response()->json([
+            'dughDataLabel' => $dughDataLabel,
+            'dughDataValue' => $dughDataValue,
         ]);
-
-        // Redirecionar para uma rota ou retornar uma resposta adequada
     }
 
-
-
+    public function OrderData($postData){ // This is the function which I want to call from ajax
+        //do something awesome with that post data 
+        return "I am in";
+    }
 
     function index(){
 
@@ -165,5 +171,143 @@ class RelatorioController extends Controller
         ->with('usuario', $usuario)
         ->with('dataFormatada',$numeral)
         ->with('informa', $informa);
+    }
+
+    function indexAbrir(){
+
+        $usuario = Auth::user();  //pega table usuario que está logado
+        $informa = DB::table('relatorios')->get(); // pega a table relatórios
+        $ano = date('Y'); //retorna o ano
+        $mes = date('m'); //retorna o mes
+        
+        $mesAtual = Carbon::now()->month; //retorna o mes
+
+        $totalRegistros = Relatorio::whereMonth('created_at', $mesAtual)->count();  //dentro da table relatorio, pega a coluna created at, baseado no mes de criação, conta quantos registros foram feitos e entrega o número para a variavel totalRegistros
+
+
+        $listaNomes = ['Master', 'DMT', 'COBM', 'COBMI', '1ºGBM/SPO', '1ºGBM/OP/CMD']; // cria uma lista conforme as possibilidades de funções que um usuário pode ter
+        $listaNumeros = []; //variavel para segurar os números que seram atribuidos conforme os Nomes
+        foreach ($listaNomes as $indice => $nome) { //vai buscar 
+        $numero = $indice + 1;
+        $listaNumeros[$nome] = $numero;
+        }
+        $nomeBuscado = $usuario->role; //busca a função do usuário
+        $numeroEncontrado = $listaNumeros[$nomeBuscado]; //atribui baseado na função do usuario o valor correspondente (master-1,DMT-2 ...)
+
+        if($totalRegistros<9){  //adiciona zeros para criar um número de registro de ocorrencia
+            $totalRegistros = '000'.($totalRegistros+1);
+        } elseif($totalRegistros<99){
+            $totalRegistros = '00'.($totalRegistros+1);
+        } elseif($totalRegistros<999){
+            $totalRegistros = '0'.($totalRegistros+1);
+        }
+
+          
+          // Exemplo de busca pelo número correspondente ao nome 'Maria'
+          //$nomeBuscado = 'Master';
+
+            $numeral = $ano . $mes .  $numeroEncontrado . ($totalRegistros);
+        
+            $columnData2 = Relatorio::pluck('identificador')->toArray();
+
+        //return view('criar', compact('usuario'));
+        return view('abrir')
+        ->with('usuario', $usuario)
+        ->with('dataFormatada',$numeral)
+        ->with('columnData2',$columnData2)
+        ->with('informa', $informa);
+    }
+
+    public function obterDados(Request $request, $identificador)
+    {
+        $dados = $this->obterDadosDoBanco($identificador);
+
+        return response()->json($dados);
+    }
+
+    // Função para obter os dados do banco de dados
+    public function obterDadosDoBanco($identificador)
+    {
+        $linha = Relatorio::where('identificador', $identificador)->first();
+
+        if ($linha) {
+            $input1 = "input1";
+            $input2 = "input2";
+            $input3 = $linha->coluna3;
+
+            return [
+                'input1' => $input1,
+                'input2' => $input2,
+                'input3' => $input3,
+            ];
+        }
+
+        return [
+            'input1' => '',
+            'input2' => '',
+            'input3' => '',
+        ];
+    }
+
+    public function askServer($identificador)
+    {
+        //$relatorio = Relatorio::find($identificador);
+        // ou
+        $relatorio = Relatorio::firstWhere('identificador', $identificador);
+    
+        if ($relatorio) {
+            // A linha foi encontrada, faça algo com ela
+            $op_data = $relatorio->data_do_ocorrido;
+            $op_cidade = $relatorio->cidade_ocorrencia;
+            $op_bairro = $relatorio->bairro_ocorrencia;
+            $op_rua = $relatorio->rua_ocorrencia;
+            $op_num = $relatorio->num_ocorrencia;
+            $op_pref = $relatorio->pref_ocorrencia;
+
+            $op_nome_sol = $relatorio->nome_solicitante;
+            $op_tel_sol = $relatorio->telefone_solicitante;
+
+            $op_nome_mil = $relatorio->nome_militar;
+            $op_num_mil = $relatorio->numfun_militar;
+            $op_fun_mil = $relatorio->fun_militar;
+
+            $op_tipo = $relatorio->tipo_de_ocorrencia;
+            $op_hor_aci = $relatorio->horario_acionamento;
+            $op_hor_che = $relatorio->horario_chegada;
+            $op_hor_ter = $relatorio->horario_termino;
+            $op_desc = $relatorio->descrição_ocorrencia;
+            $op_hist = $relatorio->hist_ocorrencia;
+
+            $op_vtr_tipo = $relatorio->tipo_de_viatura;
+            $op_vtr_placa = $relatorio->placa_viatura;
+            $op_vtr_guar = $relatorio->quant_guar;
+
+
+            return response()->json([
+                'abrir_data' => $op_data,
+                'abrir_cidade' => $op_cidade,
+                'abrir_bairro' => $op_bairro,
+                'abrir_rua' => $op_rua,
+                'abrir_num' => $op_num,
+                'abrir_pref' => $op_pref,
+                'abrir_nome_sol' => $op_nome_sol,
+                'abrir_tel_sol' => $op_tel_sol,
+                'abrir_nome_mil' => $op_nome_mil,
+                'abrir_num_mil' => $op_num_mil,
+                'abrir_fun_mil' => $op_fun_mil,
+                'abrir_tipo' => $op_tipo,
+                'abrir_hor_aci' => $op_hor_aci,
+                'abrir_hor_che' => $op_hor_che,
+                'abrir_hor_ter' => $op_hor_ter,
+                'abrir_desc' => $op_desc,
+                'abrir_hist' => $op_hist,
+                'abrir_vtr_tipo' => $op_vtr_tipo,
+                'abrir_vtr_placa' => $op_vtr_placa,
+                'abrir_vtr_guar' => $op_vtr_guar
+            ]);
+        } else {
+            // A linha não foi encontrada
+            return response()->json(['message' => 'Relatório não encontrado'], 404);
+        }
     }
 }
