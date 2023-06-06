@@ -34,8 +34,8 @@
                                     <div class="col-md-2 pl-1">
                                         <div class="form-group">
                                             <label>Data do Registro</label>
-                                            <input type="date" class="form-control" id="data_registro" name="data_registro" value=""
-                                                readonly>
+                                            <input type="date" class="form-control" id="data_registro"
+                                                name="data_registro" value="" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -386,13 +386,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-info btn-fill pull-right">Buscar</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <h3>How are you server ?</h3>
-                                        <button class="ask-server">Ask</button>
+                                        <button onclick="exibirMensagem()" type="button"
+                                            class="btn btn-info btn-fill pull-right">Buscar</button>
                                     </div>
                                 </div>
                             </div>
@@ -408,21 +403,21 @@
                                         <div class="form-group">
                                             <label>Militar Solicitante</label>
                                             <input type="text" class="form-control" name="nome_militar"
-                                               id="nome_militar" value="" readonly>
+                                                id="nome_militar" value="" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3 px-1">
                                         <div class="form-group">
                                             <label>Nº Funcional</label>
                                             <input type="text" class="form-control" name="numfun_militar"
-                                               id="numfun_militar" value="" readonly>
+                                                id="numfun_militar" value="" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-4 pl-1">
                                         <div class="form-group">
                                             <label>Função</label>
                                             <input type="text" class="form-control" name="fun_militar" value=""
-                                               id="fun_militar" readonly>
+                                                id="fun_militar" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -572,7 +567,28 @@
 @push('js')
     <script>
         $(document).ready(function() {
+
+
+            //var identificador = obterParametroURL('identificador');
+
+            // var msgAlert = "Não deu certo";
+
+            /*             if (identificador) {
+                            // A variável identificador foi passada como parâmetro na URL
+
+                            // Atribuir valor ao input HTML
+                            alert(identificador)
+                            $('#seuInput').val(identificador);
+
+                            // Outras ações ou atribuições necessárias
+                        } else {
+                            // A variável identificador não foi passada como parâmetro na URL
+                            alert("não deu certo")
+                            // Outras ações ou atribuições necessárias
+                        } */
             // Javascript method's body can be found in assets/js/demos.js
+            //preencherInput(identificador);
+            
             demo.initDashboardPageCharts();
 
             demo.showNotification();
@@ -589,9 +605,6 @@
             name: 'relato',
             source: substringMatcher(relato)
         });
-
-        // }
-        //});
 
 
 
@@ -667,6 +680,8 @@
                 }
             });
         });
+
+
     </script>
 @endpush
 

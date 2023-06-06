@@ -36,6 +36,8 @@ Route::get('/lista-num/{cidade}', 'RelatorioController@listaNumRelatorio');
 Route::get('/obter-dados/{identificador}', 'RelatorioController@obterDados');
 
 Route::get('/ask-server/{identificador}', [RelatorioController::class, 'askServer']);
+Route::get('/abrir/{identificador}', [RelatorioController::class, 'indexAbrir']);
+
 
 //buscar os dados no database e jogar na view do dashboard em forma de grafico e de tabela
 Route::get('/dashboard', 'App\Http\Controllers\HomeController@index3')->name('dashboard');

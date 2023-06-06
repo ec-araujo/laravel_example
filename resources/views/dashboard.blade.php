@@ -4,52 +4,6 @@
     <div class="content">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div class="container-fluid">
-            <!--
-                                                                                                                                <div class="row">
-                                                                                                                                    <div class="col-md-4">
-                                                                                                                                        <div class="card ">
-                                                                                                                                            <div class="card-header ">
-                                                                                                                                                <h4 class="card-title">{{ __('Quantidade de Ocorrências - 2023') }}</h4>
-                                                                                                                                                <p class="card-category">{{ __('Registro de Ocorrências') }}</p>
-                                                                                                                                            </div>
-                                                                                                                                            <div class="card-body ">
-                                                                                                                                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-                                                                                                                                                <div class="legend">
-                                                                                                                                                    <i class="fa fa-circle text-info"></i> {{ __('Open') }}
-                                                                                                                                                    <i class="fa fa-circle text-danger"></i> {{ __('Bounce') }}
-                                                                                                                                                    <i class="fa fa-circle text-warning"></i> {{ __('Unsubscribe') }}
-                                                                                                                                                </div>
-                                                                                                                                                <hr>
-                                                                                                                                                <div class="stats">
-                                                                                                                                                    <i class="fa fa-clock-o"></i> {{ __('Campaign sent 2 days ago') }}
-                                                                                                                                                </div>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                    <div class="col-md-8">
-                                                                                                                                        <div class="card ">
-                                                                                                                                            <div class="card-header ">
-                                                                                                                                                <h4 class="card-title">{{ __('Users Behavior') }}</h4>
-                                                                                                                                                <p class="card-category">{{ __('24 Hours performance') }}</p>
-                                                                                                                                            </div>
-                                                                                                                                            <div class="card-body ">
-                                                                                                                                                <div id="chartHours" class="ct-chart"></div>
-                                                                                                                                            </div>
-                                                                                                                                            <div class="card-footer ">
-                                                                                                                                                <div class="legend">
-                                                                                                                                                    <i class="fa fa-circle text-info"></i> {{ __('Open') }}
-                                                                                                                                                    <i class="fa fa-circle text-danger"></i> {{ __('Click') }}
-                                                                                                                                                    <i class="fa fa-circle text-warning"></i> {{ __('Click Second Time') }}
-                                                                                                                                                </div>
-                                                                                                                                                <hr>
-                                                                                                                                                <div class="stats">
-                                                                                                                                                    <i class="fa fa-history"></i> {{ __('Updated 3 minutes ago') }}
-                                                                                                                                                </div>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            -->
             <div class="row">
                 <div class="col-md-7">
                     <div class="card ">
@@ -171,14 +125,11 @@
                             <p class="card-category">{{ __('Ocorrências por Mês - gráfico donut') }}</p>
                             <div id="the-basics" class="form-group">
                                 <input class="form-control typeahead" type="text" placeholder="Cidade">
-                                <input class="form-control" type="text" id="meuInput" name="meuInput" value="">
                             </div>
 
                         </div>
                         <div class="card-body ">
                             <canvas id="myChartDonut" style="width: 250px; height: 100px;"></canvas>
-
-                            <button id="meuBotao">Clique Aqui</button>
 
 
 
@@ -249,6 +200,7 @@
                     <div class="card">
                         <div class="card-header ">
                             <h4 class="card-title">{{ __('Relatórios') }}</h4>
+
                         </div>
                         <div class="card-body " style="text-align: center">
                             <div class="pagination-container">
@@ -273,9 +225,8 @@
                                                 <td>{{ $dado->cidade_ocorrencia }}</td>
                                                 <td>{{ $dado->nome_solicitante }}</td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-primary btn-xs"
-                                                        id="abrir_relatorio" name="abrir_relatorio"
-                                                        >Abrir
+                                                    <button type="submit" class="btn btn-primary btn-xs abrir_relatorio"
+                                                        data-identificador="{{ $dado->identificador }}">Abrir
                                                         Relatório</button>
 
                                                 </td>
@@ -310,18 +261,18 @@
         });
 
 
-        $('#meuBotao').click(function() {
-    $.ajax({
-      url: '/exemplo',
-      type: 'GET',
-      success: function(response) {
-        alert('Mensagem: ' + response.mensagem);
-      },
-      error: function(xhr, status, error) {
-        console.error(xhr.responseText);
-      }
-    });
-  });
+        //$('#meuBotao').click(function() {
+        //   $.ajax({
+        //     url: '/exemplo',
+        //   type: 'GET',
+        //   success: function(response) {
+        //       alert('Mensagem: ' + response.mensagem);
+        //     },
+        //  error: function(xhr, status, error) {
+        //      console.error(xhr.responseText);
+        //       }
+        //   });
+        //});
 
 
 
@@ -346,52 +297,74 @@
 
         $('#the-basics .typeahead').on('typeahead:select', function(e, suggestion) {
             const chart = Chart.getChart("myChartDonut");
-            var novoValor = "Deu certo";
 
             // Atualizar o valor do input
             if (chart) {
-
+                var novoValor = "Deu certo";
+                alert(novoValor)
                 // Fazer uma requisição AJAX para buscar dados no banco de dados
-                $.ajax({
-                    type: "GET",
-                    url: {{ route('abrir') }},
-                    data: {
-                        cidade: suggestion
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        // Atualizar os valores dos dados e rótulos com base nos dados do banco de dados
-                        //var newData = data.valores;
-                        //var newLabels = data.rótulos;
-                        $('#meuInput').val("suggestion");
+                /*                 $.ajax({
+                                    type: "GET",
+                                    url: {{ route('abrir') }},
+                                    data: {
+                                        cidade: suggestion
+                                    },
+                                    dataType: 'json',
+                                    success: function(data) {
+                                        // Atualizar os valores dos dados e rótulos com base nos dados do banco de dados
+                                        //var newData = data.valores;
+                                        //var newLabels = data.rótulos;
+                                        $('#meuInput').val("suggestion");
 
-                        //chart.data.datasets[0].data = newData;
-                        //chart.data.labels = newLabels;
-                        //chart.update();
+                                        //chart.data.datasets[0].data = newData;
+                                        //chart.data.labels = newLabels;
+                                        //chart.update();
 
 
-                    }
-                });
+                                    }
+                                }); */
             }
 
         });
 
-        function abrirRelatorio() {
-            $.ajax({
-                url: '/abrir',
+        $('.abrir_relatorio').click(function() {
+            var identificador = $(this).data('identificador');
+            window.location.href = '/abrir/' + identificador;
+/*             $.ajax({
+                url: '/abrir/' + identificador, // Substitua pela URL da outra view
                 type: 'GET',
+                data: identificador,
+                //processData: false,
+                //contentType: false,
                 success: function(response) {
                     // A solicitação foi bem-sucedida
-                    var data = response.abrir_data;
-
-                    alert(data);
-                    // Faça algo com a resposta recebida do servidor
+                    
+                    //alert(identificador); // Faça algo com a resposta recebida do servidor
                 },
                 error: function(xhr, status, error) {
                     // Ocorreu um erro na solicitação
                     alert(xhr.responseText);
                 }
-            });
-        }
+            }); */
+            //alert(identificador);
+            // window.location.href = '/abrir/identificador=' + encodeURIComponent(identificador);
+            
+            // Redirecionar para a página desejada com o identificador como parâmetro de URL
+
+        });
+
+        /*         function abrirRelatorio() {
+                    $.ajax({
+                        url: 'abrir', // URL of the view or route you want to navigate to
+                        type: 'GET',
+                        success: function(response) {
+                            // Redirect to the desired view
+                            window.location.href = '/abrir';
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                } */
     </script>
 @endpush
