@@ -36,8 +36,8 @@ return new class extends Migration {
             $table->time('horario_acionamento');
             $table->time('horario_chegada');
             $table->time('horario_termino');
-            $table->string('descrição_ocorrencia');
 
+            $table->string('descrição_ocorrencia');
             $table->string('hist_ocorrencia');
 
             $table->string('vitimas');

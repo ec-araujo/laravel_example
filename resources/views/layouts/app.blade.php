@@ -175,7 +175,36 @@
         source: substringMatcher(states)
     });
 
+    var bbms = ['1ºBBM',
+        '2ºBBM',
+        '3ºBBM',
+        '4ºBBM',
+        '5ºBBM',
+        '6ºBBM',
+        '7ºBBM',
+        '8ºBBM',
+        '9ºBBM',
+        '10ºBBM',
+        '11ºBBM',
+        '12ºBBM',
+        '13ºBBM',
+        '14ºBBM',
+        '15ºBBM',
+        '16ºBBM',
+        '17ºBBM',
+        '18ºBBM',
+        '19ºBBM',
+        '20ºBBM',
+    ];
 
+    $('#ta-bbm-relatorios .typeahead').typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 1
+    }, {
+        name: 'bbms',
+        source: substringMatcher(bbms)
+    });
 
 
     //variaveis que não devem mudar ao limpar um formulário
@@ -364,6 +393,19 @@
         document.getElementById("formcentro").reset();
         document.getElementById("formulario").reset();
     }
+
+
+    function zoomIn() {
+  var image = document.getElementById("myImage");
+  image.classList.add("zoomed");
+}
+
+function zoomOut() {
+  var image = document.getElementById("myImage");
+  image.classList.remove("zoomed");
+}
+
+
 </script>
 
 

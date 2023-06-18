@@ -174,7 +174,21 @@ class HomeController extends Controller
             ->with('chartDouData', $chartDouData);
     }
 
+    public function filtro(Request $request) {
 
+        
+        $query = Relatorio::query();
+
+        if ($request->has('cidade')) {
+            $cidade = $request->cidade;
+            $query->where('cidade_ocorrencia', '=', $cidade);
+        }
+    
+        $produtos = $query->paginate();
+    
+
+        return view('_cidade')->with('produtos', $produtos);
+    }
     public function index3()
     {
         $dados = DB::table('relatorios')
@@ -184,4 +198,6 @@ class HomeController extends Controller
 
         return view('dashboard', ['dados' => $dados]);
     }
+
+
 }

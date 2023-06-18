@@ -1,7 +1,7 @@
 @extends('layouts/app', ['activePage' => 'login', 'title' => 'Relator 1.0'])
 
 @section('content')
-    <div class="full-page section-image" data-color="black" data-image="{{ asset('light-bootstrap/img/barroquinha.png') }}">
+    <div class="full-page section-image" data-image="{{ asset('light-bootstrap/img/barroquinha.png') }}">
         <div class="content pt-5">
             <div class="container mt-5">    
                 <div class="col-md-4 col-sm-6 ml-auto mr-auto">
@@ -17,7 +17,7 @@
                                         <label for="email" class="col-md-6 col-form-label">{{ __('E-Mail') }}</label>
             
                                         <div class="col-md-14">
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', '123@123') }}" required autocomplete="email" autofocus>
+                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', 'araujo@gmail.com') }}" required autocomplete="email" autofocus>
             
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
@@ -72,7 +72,7 @@
             setTimeout(function() {
                 // after 1000 ms we add the class animated to the login/register card
                 $('.card').removeClass('card-hidden');
-            }, 700)
+            }, 1000)
         });
     </script>
 @endpush

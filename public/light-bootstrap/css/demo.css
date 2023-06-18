@@ -873,3 +873,9 @@
     overflow: hidden;
     background-color: #f1f1f1;
   } 
+
+  #myImage {
+    opacity: 0;
+    transition: opacity 2s;
+    
+  }

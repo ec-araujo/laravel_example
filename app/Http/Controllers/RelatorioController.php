@@ -124,11 +124,6 @@ class RelatorioController extends Controller
         ]);
     }
 
-    public function OrderData($postData){ // This is the function which I want to call from ajax
-        //do something awesome with that post data 
-        return "I am in";
-    }
-
     function index(){
 
         $usuario = Auth::user();  //pega table usuario que está logado
@@ -175,6 +170,9 @@ class RelatorioController extends Controller
 
     function indexAbrir($variavel = null){
 
+
+        $relatorio = Relatorio::firstWhere('identificador', $variavel);
+
         $usuario = Auth::user();  //pega table usuario que está logado
         $informa = DB::table('relatorios')->get(); // pega a table relatórios
         $ano = date('Y'); //retorna o ano
@@ -216,6 +214,7 @@ class RelatorioController extends Controller
         ->with('dataFormatada',$numeral)
         ->with('columnData2',$columnData2)
         ->with('identificador',$variavel)
+        ->with('relatorio',$relatorio)
         ->with('informa', $informa);
     }
 
@@ -344,4 +343,18 @@ class RelatorioController extends Controller
             return response()->json(['message' => 'Relatório não encontrado'], 404);
         } */
     }
+    public function index2Relatorios()
+    {
+        $dados = DB::table('relatorios')
+            ->select(DB::raw('MONTHNAME(data_do_ocorrido) as mes'), DB::raw('COUNT(*) as total'))
+            ->groupBy('mes')
+            ->get();
+
+        $roles = DB::table('relatorios')->paginate(15);
+
+        return view('relatorios')
+            ->with('roles', $roles)
+            ->with('dados', $dados);
+    }
+
 }

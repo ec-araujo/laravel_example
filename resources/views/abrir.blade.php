@@ -568,27 +568,11 @@
     <script>
         $(document).ready(function() {
 
+            var num_Relatorio = "{{ $identificador }}";
+            var cont_Relatorio = <?php echo $relatorio; ?>
 
-            //var identificador = obterParametroURL('identificador');
+            testeID(num_Relatorio, cont_Relatorio);
 
-            // var msgAlert = "Não deu certo";
-
-            /*             if (identificador) {
-                            // A variável identificador foi passada como parâmetro na URL
-
-                            // Atribuir valor ao input HTML
-                            alert(identificador)
-                            $('#seuInput').val(identificador);
-
-                            // Outras ações ou atribuições necessárias
-                        } else {
-                            // A variável identificador não foi passada como parâmetro na URL
-                            alert("não deu certo")
-                            // Outras ações ou atribuições necessárias
-                        } */
-            // Javascript method's body can be found in assets/js/demos.js
-            //preencherInput(identificador);
-            
             demo.initDashboardPageCharts();
 
             demo.showNotification();
@@ -597,6 +581,7 @@
 
         var relato = {!! json_encode($columnData2) !!};
 
+        //busca o número do relatório na input de busca utilizando o typeahead
         $('#num-relatorio-busca .typeahead').typeahead({
             hint: false,
             highlight: true,
@@ -606,11 +591,8 @@
             source: substringMatcher(relato)
         });
 
-
-
+        //ao selecionar um identificador com o typeahead ele preenche todas as informações do relatório
         $('#num-relatorio-busca .typeahead').on('typeahead:select', function(e, suggestion) {
-
-
             $.ajax({
                 url: '/ask-server/' + suggestion,
                 type: 'GET',
@@ -622,7 +604,6 @@
                     var rua = response.abrir_rua;
                     var num = response.abrir_num;
                     var pref = response.abrir_pref;
-
                     var nome_sol = response.abrir_nome_sol;
                     var tel_sol = response.abrir_tel_sol;
                     var nome_mil = response.abrir_nome_mil;
@@ -632,7 +613,6 @@
                     var hor_aci = response.abrir_hor_aci;
                     var hor_che = response.abrir_hor_che;
                     var hor_ter = response.abrir_hor_ter;
-
                     var desc = response.abrir_desc;
                     var hist = response.abrir_hist;
                     var vtr_tipo = response.abrir_vtr_tipo;
@@ -640,39 +620,29 @@
                     var vtr_guar = response.abrir_vtr_guar;
 
                     //info local da ocorrencia
-                    $('#identificador').val(suggestion);
-                    $('#data_do_ocorrido').val(data);
-                    $('#cidade_ocorrencia').val(cidade);
-                    $('#bairro_ocorrencia').val(bairro);
-                    $('#rua_ocorrencia').val(rua);
-                    $('#num_ocorrencia').val(num);
-                    $('#pref_ocorrencia').val(pref);
-
-                    //info pessoa solicitante
-                    $('#nome_solicitante').val(nome_sol);
-                    $('#telefone_solicitante').val(tel_sol);
-
-                    //info militar solicitante
-                    $('#nome_militar').val(nome_mil);
-                    $('#numfun_militar').val(num_mil);
-                    $('#fun_militar').val(fun_mil);
-
-                    //info sobre a ocorrencia
-                    $('#tipo_de_ocorrencia').val(tipo);
-                    $('#horario_acionamento').val(hor_aci);
-                    $('#horario_chegada').val(hor_che);
-                    $('#horario_termino').val(hor_ter);
-
-                    $('#descrição_ocorrencia').val(desc);
-                    $('#hist_ocorrencia').val(hist);
-
-                    $('#tipo_de_viatura').val(vtr_tipo);
-                    $('#placa_viatura').val(vtr_placa);
-                    $('#quant_guar').val(vtr_guar);
-                    //alert(data);
-                    //alert(cidade);
-                    //alert(bairro);
-                    // Faça algo com a resposta recebida do servidor
+                    preencherCampos(
+                        suggestion,
+                        data,
+                        cidade,
+                        bairro,
+                        rua,
+                        num,
+                        pref,
+                        nome_sol,
+                        tel_sol,
+                        nome_mil,
+                        num_mil,
+                        fun_mil,
+                        tipo,
+                        hor_aci,
+                        hor_che,
+                        hor_ter,
+                        desc,
+                        hist,
+                        vtr_tipo,
+                        vtr_placa,
+                        vtr_guar
+                    );
                 },
                 error: function(xhr, status, error) {
                     // Ocorreu um erro na solicitação
@@ -681,6 +651,104 @@
             });
         });
 
+        function preencherCampos(id, data, cidade, bairro, rua, num, pref, nome_sol, tel_sol, nome_mil, num_mil, fun_mil,
+            tipo, hor_aci, hor_che, hor_ter, desc, hist, vtr_tipo, vtr_placa, vtr_guar) {
+            $('#identificador').val(id);
+            $('#data_do_ocorrido').val(data);
+            $('#cidade_ocorrencia').val(cidade);
+            $('#bairro_ocorrencia').val(bairro);
+            $('#rua_ocorrencia').val(rua);
+            $('#num_ocorrencia').val(num);
+            $('#pref_ocorrencia').val(pref);
+
+            //info pessoa solicitante
+            $('#nome_solicitante').val(nome_sol);
+            $('#telefone_solicitante').val(tel_sol);
+
+            //info militar solicitante
+            $('#nome_militar').val(nome_mil);
+            $('#numfun_militar').val(num_mil);
+            $('#fun_militar').val(fun_mil);
+
+            //info sobre a ocorrencia
+            $('#tipo_de_ocorrencia').val(tipo);
+            $('#horario_acionamento').val(hor_aci);
+            $('#horario_chegada').val(hor_che);
+            $('#horario_termino').val(hor_ter);
+
+            $('#descrição_ocorrencia').val(desc);
+            $('#hist_ocorrencia').val(hist);
+
+            $('#tipo_de_viatura').val(vtr_tipo);
+            $('#placa_viatura').val(vtr_placa);
+            $('#quant_guar').val(vtr_guar);
+        }
+
+        function testeID(identificador = null, cont_Relatorio) {
+
+            if (identificador) {
+
+                //console.log(cont_Relatorio.identificador); // Exemplo de uso: exibindo a coluna "data_do_ocorrido" no console
+                //alert(cont_Relatorio.cidade_ocorrencia);
+                var id = cont_Relatorio.identificador;
+
+                var data = cont_Relatorio.data_do_ocorrido;
+
+                var cidade = cont_Relatorio.cidade_ocorrencia;
+                var bairro = cont_Relatorio.bairro_ocorrencia;
+                var rua = cont_Relatorio.rua_ocorrencia;
+                var num = cont_Relatorio.num_ocorrencia;
+                var pref = cont_Relatorio.pref_ocorrencia;
+
+                var nome_sol = cont_Relatorio.nome_solicitante;
+                var tel_sol = cont_Relatorio.telefone_solicitante;
+
+                var nome_mil = cont_Relatorio.nome_militar;
+                var num_mil = cont_Relatorio.numfun_militar;
+                var fun_mil = cont_Relatorio.fun_militar;
+
+                var tipo = cont_Relatorio.tipo_de_ocorrencia;
+
+                var hor_aci = cont_Relatorio.horario_acionamento;
+                var hor_che = cont_Relatorio.horario_chegada;
+                var hor_ter = cont_Relatorio.horario_termino;
+
+                var desc = cont_Relatorio.descrição_ocorrencia;
+                var hist = cont_Relatorio.hist_ocorrencia;
+
+                var vtr_tipo = cont_Relatorio.tipo_de_viatura;
+                var vtr_placa = cont_Relatorio.placa_viatura;
+                var vtr_guar = cont_Relatorio.quant_guar;
+
+                //info local da ocorrencia
+                preencherCampos(
+                    id,
+                    data,
+                    cidade,
+                    bairro,
+                    rua,
+                    num,
+                    pref,
+                    nome_sol,
+                    tel_sol,
+                    nome_mil,
+                    num_mil,
+                    fun_mil,
+                    tipo,
+                    hor_aci,
+                    hor_che,
+                    hor_ter,
+                    desc,
+                    hist,
+                    vtr_tipo,
+                    vtr_placa,
+                    vtr_guar
+                );
+
+            } else {
+                alert("A função TesteID não recebeu nenhum valor");
+            }
+        }
 
     </script>
 @endpush

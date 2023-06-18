@@ -544,15 +544,11 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            // Javascript method's body can be found in assets/js/demos.js
             demo.initDashboardPageCharts();
 
             demo.showNotification();
 
         });
-
-        //var inputElement = document.getElementById("p2");
-        //inputElement.value = date.toISOString(); // ou utilize outro formato de data desejado
     </script>
 @endpush
 

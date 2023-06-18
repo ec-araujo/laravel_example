@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GraficoController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Http\Request;
+use App\Models\Relatorio;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -25,23 +27,38 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+//chama a view criar, com a função index dentro de relatório controller
 Route::get('/criar', 'App\Http\Controllers\RelatorioController@index')->name('criar');
+//chama a view abrir, com a função indexAbrir dentro de relatório controller
 Route::get('/abrir', 'App\Http\Controllers\RelatorioController@indexAbrir')->name('abrir');
 
+//chama a função salvarDados para salvar todos os dados do formulário e colocar dentro do database
 Route::post('salvar-dados', [RelatorioController::class,'salvarDados']);
 //Route::get('/lista-num', [RelatorioController::class, 'listaNumRelatorio'])->name('lista-num');
+
 
 Route::get('/lista-num/{cidade}', 'RelatorioController@listaNumRelatorio');
 Route::get('/obter-dados/{identificador}', 'RelatorioController@obterDados');
 
+//com o identificador é buscado no banco de dados todas as outras informações e adicionada em várias variáveis
 Route::get('/ask-server/{identificador}', [RelatorioController::class, 'askServer']);
-Route::get('/abrir/{identificador}', [RelatorioController::class, 'indexAbrir']);
+//ao clicar em abrir no dashboard ele irá levar todas as informações do relatório para a view abrir com a função indexAbrir
+Route::get('/abrir/{identificador}', [RelatorioController::class, 'indexAbrir'])->name('abrirOpen');
 
 
 //buscar os dados no database e jogar na view do dashboard em forma de grafico e de tabela
 Route::get('/dashboard', 'App\Http\Controllers\HomeController@index3')->name('dashboard');
+
 Route::get('/home', 'App\Http\Controllers\HomeController@index2')->name('grafico');
+
+Route::get('/relatorios', 'App\Http\Controllers\RelatorioController@index2Relatorios')->name('relatorios');
+
+
+
+
+Route::get('/relatoriosfiltro', [HomeController::class, 'filtro'])->name('filtroRelatorio');
+
+
 
 
 Route::get('add-blog-post-form', [PostController::class, 'index']);

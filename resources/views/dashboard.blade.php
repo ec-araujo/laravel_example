@@ -1,6 +1,8 @@
 @extends('layouts.app', ['activePage' => 'dashboard', 'title' => 'Relator 1.0', 'navName' => 'Dashboard', 'activeButton' => 'laravel'])
 
 @section('content')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <div class="content">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div class="container-fluid">
@@ -124,9 +126,38 @@
                             <h4 class="card-title">{{ __('2023 - Relatórios de Ocorrência') }}</h4>
                             <p class="card-category">{{ __('Ocorrências por Mês - gráfico donut') }}</p>
                             <div id="the-basics" class="form-group">
-                                <input class="form-control typeahead" type="text" placeholder="Cidade">
-                            </div>
+                                <form id="formBusca" action="{{ route('filtroRelatorio') }}" method="GET">
+                                    @csrf
+                                    <input class="form-control typeahead" type="text" name="cidade"
+                                        placeholder="Cidade">
+                                    <button type="submit" class="btn btn-primary btn-xs">Abrir Relatório</button>
+                                </form>
 
+                                <div id="resultado"></div>
+
+                            </div>
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                $(document).ready(function() {
+                                    $('formBusca').on('submit', function(e) {
+                                        e.preventDefault(); // Evita o comportamento padrão de submit do formulário
+                                        
+                                        var cidade = $('input[name="cidade"]').val(); // Obtém o valor da cidade do input
+                                        
+                                        $.ajax({
+                                            url = "{{ route('filtroRelatorio') }}",
+                                            method: 'GET',
+                                            data: { cidade: cidade },
+                                            success: function(response) {
+                                                $('#resultado').html(response);
+                                            },
+                                            error: function() {
+                                                alert('Ocorreu um erro ao buscar os produtos.');
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
                         </div>
                         <div class="card-body ">
                             <canvas id="myChartDonut" style="width: 250px; height: 100px;"></canvas>
@@ -253,26 +284,13 @@
 @push('js')
     <script type="text/javascript">
         $(document).ready(function() {
+
             // Javascript method's body can be found in assets/js/demos.js
             demo.initDashboardPageCharts();
 
             demo.showNotification();
-
         });
 
-
-        //$('#meuBotao').click(function() {
-        //   $.ajax({
-        //     url: '/exemplo',
-        //   type: 'GET',
-        //   success: function(response) {
-        //       alert('Mensagem: ' + response.mensagem);
-        //     },
-        //  error: function(xhr, status, error) {
-        //      console.error(xhr.responseText);
-        //       }
-        //   });
-        //});
 
 
 
@@ -301,7 +319,7 @@
             // Atualizar o valor do input
             if (chart) {
                 var novoValor = "Deu certo";
-                alert(novoValor)
+                //alert(novoValor)
                 // Fazer uma requisição AJAX para buscar dados no banco de dados
                 /*                 $.ajax({
                                     type: "GET",
@@ -329,29 +347,11 @@
 
         $('.abrir_relatorio').click(function() {
             var identificador = $(this).data('identificador');
-            window.location.href = '/abrir/' + identificador;
-/*             $.ajax({
-                url: '/abrir/' + identificador, // Substitua pela URL da outra view
-                type: 'GET',
-                data: identificador,
-                //processData: false,
-                //contentType: false,
-                success: function(response) {
-                    // A solicitação foi bem-sucedida
-                    
-                    //alert(identificador); // Faça algo com a resposta recebida do servidor
-                },
-                error: function(xhr, status, error) {
-                    // Ocorreu um erro na solicitação
-                    alert(xhr.responseText);
-                }
-            }); */
-            //alert(identificador);
-            // window.location.href = '/abrir/identificador=' + encodeURIComponent(identificador);
-            
-            // Redirecionar para a página desejada com o identificador como parâmetro de URL
-
+            var url = "{{ route('abrirOpen', ['identificador' => ':identificador']) }}";
+            url = url.replace(':identificador', identificador);
+            window.location.href = url;
         });
+
 
         /*         function abrirRelatorio() {
                     $.ajax({
